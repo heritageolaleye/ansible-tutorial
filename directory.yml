@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: creating a directory 
+    file: 
+       path: /home/seun/learningapp
+       state: directory
+       owner: seun
+       group: seun

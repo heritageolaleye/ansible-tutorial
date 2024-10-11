@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: creating a file 
+    file: 
+       path: /home/seun/testfile
+       state: touch
+       owner: seun
+       group: seun
