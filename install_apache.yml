@@ -2,14 +2,20 @@
 
 - hosts: all
   become: true
-  tasks:
+  pre_tasks:
 
+  - name: install updates
+    tags: always
+    apt:
+      update_cache: yes
+  
   - name: install apache2 and php package
+    tags: apache.apache2.ubuntu
     apt:
       name: 
         - apache2
         - libapache2-mod-php
       state: latest
-      update_cache: yes
+      
 
   
