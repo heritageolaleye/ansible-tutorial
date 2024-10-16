@@ -1,0 +1,46 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: install updates
+    tags: always
+    apt:
+      update_cache: yes
+  
+  - name: install apache2 and php package
+    tags: apache.apache2.ubuntu
+    apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: create a Asher user
+    user:
+      name: Asher
+      groups: root
+
+  - name: add ssh key for Asher
+    tags: always
+    authorized_key:
+      user: Asher
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF093s463VY9xGwvvpzb5SUbnfuLVI1Dol3kP6KLpX9U ansible"
+
+  - name: add sudoers file for Asher
+    tags: always
+    copy:
+      src: sudoer_Asher
+      dest: /etc/sudoers.d/Asher
+      owner: root
+      group: root
+      mode: 0440
+   
+      
+
+  
